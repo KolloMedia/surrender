@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surrender</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', 'Nunito Sans', 'Varela Round', 'Comfortaa', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            font-weight: 600;
+            position: relative;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .ovarmees-corner {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b35;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .ovarmees-corner.hidden {
+            display: none;
+        }
+        h1 {
+            text-align: center;
+            color: #ff6b35;
+            margin-bottom: 10px;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: bold;
+            font-size: 36px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #74b9ff;
+            margin-bottom: 30px;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            font-style: italic;
+        }
+        h3 {
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 22px;
+        }
+        .game-status {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #ffeaa7;
+            border-radius: 20px;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            color: #2d3436;
+        }
+        .nested-wheel-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        .wheel-stack {
+            position: relative;
+            width: 350px;
+            height: 350px;
+        }
+        .fortune-wheel {
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid #2c3e50;
+            cursor: grab;
+            transition: transform 0.3s;
+            user-select: none;
+        }
+        .fortune-wheel:active {
+            cursor: grabbing;
+        }
+        .fortune-wheel.spinning {
+            cursor: default;
+        }
+        .outer-wheel {
+            width: 350px;
+            height: 350px;
+            top: 0;
+            left: 0;
+            background: conic-gradient(from 0deg, 
+                #e74c3c 0deg 32.7deg,
+                #3498db 32.7deg 65.4deg,
+                #2ecc71 65.4deg 98.1deg,
+                #f39c12 98.1deg 130.8deg,
+                #9b59b6 130.8deg 163.5deg,
+                #1abc9c 163.5deg 196.2deg,
+                #34495e 196.2deg 228.9deg,
+                #e67e22 228.9deg 261.6deg,
+                #95a5a6 261.6deg 294.3deg,
+                #c0392b 294.3deg 327deg,
+                #2980b9 327deg 360deg);
+        }
+        .middle-wheel {
+            width: 250px;
+            height: 250px;
+            top: 50px;
+            left: 50px;
+            background: conic-gradient(from 0deg,
+                #27ae60 0deg 18deg,
+                #e74c3c 18deg 36deg,
+                #f39c12 36deg 54deg,
+                #8e44ad 54deg 72deg,
+                #3498db 72deg 90deg,
+                #e67e22 90deg 108deg,
+                #1abc9c 108deg 126deg,
+                #34495e 126deg 144deg,
+                #c0392b 144deg 162deg,
+                #2980b9 162deg 180deg,
+                #95a5a6 180deg 198deg,
+                #d35400 198deg 216deg,
+                #7f8c8d 216deg 234deg,
+                #16a085 234deg 252deg,
+                #2c3e50 252deg 270deg,
+                #9b59b6 270deg 288deg,
+                #e74c3c 288deg 306deg,
+                #f1c40f 306deg 324deg,
+                #2ecc71 324deg 342deg,
+                #3498db 342deg 360deg);
+        }
+        .inner-wheel {
+            width: 150px;
+            height: 150px;
+            top: 100px;
+            left: 100px;
+            background: conic-gradient(from 0deg,
+                #e74c3c 0deg 14.4deg,
+                #3498db 14.4deg 28.8deg,
+                #2ecc71 28.8deg 43.2deg,
+                #f39c12 43.2deg 57.6deg,
+                #9b59b6 57.6deg 72deg,
+                #1abc9c 72deg 86.4deg,
+                #e67e22 86.4deg 100.8deg,
+                #34495e 100.8deg 115.2deg,
+                #c0392b 115.2deg 129.6deg,
+                #2980b9 129.6deg 144deg,
+                #95a5a6 144deg 158.4deg,
+                #d35400 158.4deg 172.8deg,
+                #7f8c8d 172.8deg 187.2deg,
+                #16a085 187.2deg 201.6deg,
+                #2c3e50 201.6deg 216deg,
+                #9b59b6 216deg 230.4deg,
+                #27ae60 230.4deg 244.8deg,
+                #f1c40f 244.8deg 259.2deg,
+                #8e44ad 259.2deg 273.6deg,
+                #e74c3c 273.6deg 288deg,
+                #3498db 288deg 302.4deg,
+                #2ecc71 302.4deg 316.8deg,
+                #f39c12 316.8deg 331.2deg,
+                #1abc9c 331.2deg 345.6deg,
+                #e67e22 345.6deg 360deg);
+        }
+        .wheel-values {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            pointer-events: none;
+        }
+        .wheel-value {
+            position: absolute;
+            transform-origin: 50% 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.4);
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.8);
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: 400;
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 20px solid #fd79a8;
+            z-index: 100;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        .spinning {
+            animation: wheelSpin 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        @keyframes wheelSpin {
+            0% { transform: rotate(0deg); }
+            80% { transform: rotate(1080deg); }
+            100% { transform: rotate(1080deg); }
+        }
+        .wheel-settling {
+            animation: wheelSettle 0.5s ease-out;
+        }
+        @keyframes wheelSettle {
+            0% { transform: rotate(1080deg) scale(1.02); }
+            50% { transform: rotate(1080deg) scale(0.98); }
+            100% { transform: rotate(1080deg) scale(1); }
+        }
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #ff6b35;
+            border-radius: 50%;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            border: 4px solid white;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+        }
+        .challenge-section {
+            background: #74b9ff;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            color: white;
+            font-weight: 400;
+            font-size: 18px;
+        }
+        .situation-highlight {
+            background: #00cec9;
+            padding: 30px;
+            border-radius: 25px;
+            margin: 30px 0;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            color: white;
+            font-weight: 400;
+            font-size: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        .task-highlight {
+            background: #fd79a8;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            color: white;
+            font-weight: 400;
+            font-size: 18px;
+        }
+        .clock-display {
+            background: #6c5ce7;
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 25px 0;
+            text-align: center;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .time-info {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: 400;
+        }
+        .time-info div {
+            margin: 10px 0;
+        }
+        .countdown {
+            font-size: 48px;
+            font-weight: 400;
+            color: #ffeaa7;
+            margin-top: 20px;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+        }
+        .strategies {
+            margin: 20px 0;
+        }
+        .strategy-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin: 15px 0;
+            background: #00b894;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .strategy-btn:hover {
+            background: #00a085;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        .strategy-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .btn-primary {
+            background: #e17055;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-size: 22px;
+            font-weight: 400;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn-primary:hover {
+            background: #d63031;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.3);
+        }
+        .btn-primary:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .results {
+            background: #a8e6cf;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 25px 0;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: 400;
+            color: #2d3436;
+            font-size: 18px;
+        }
+        .fruit-score {
+            font-size: 24px;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-weight: 400;
+            color: #2c3e50;
+        }
+        .surrender-banner {
+            background: #6c5ce7;
+            color: white;
+            padding: 30px;
+            border-radius: 25px;
+            margin: 25px 0;
+            text-align: center;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-size: 22px;
+            font-weight: 400;
+            font-style: italic;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            border: 4px solid white;
+        }
+        .arrow-indicator {
+            text-align: center;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+        .arrow-indicator::before {
+            content: "↓";
+            font-size: 30px;
+            color: #fd79a8;
+            font-weight: bold;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .wheel-stack {
+                width: 280px;
+                height: 280px;
+            }
+            .outer-wheel {
+                width: 280px;
+                height: 280px;
+            }
+            .middle-wheel {
+                width: 200px;
+                height: 200px;
+                top: 40px;
+                left: 40px;
+            }
+            .inner-wheel {
+                width: 120px;
+                height: 120px;
+                top: 80px;
+                left: 80px;
+            }
+            .wheel-value {
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="ovarmees-corner hidden" id="ovarmeesCorner">
+            🌟 <span id="cornerOvarmees">0</span> Ovarmees
+        </div>
+
+        <div id="startScreen">
+            <h1>🤰 Surrender</h1>
+            <p class="subtitle">the pregnancy game about ebbing and flowing</p>
+            <div class="game-status" id="mainGameStatus">
+                <div>Total Ovarmees: <span id="totalOvarmees">0</span></div>
+                <div>Plays Today: <span id="playsToday">0</span>/3</div>
+            </div>
+            <p style="text-align: center; font-size: 18px; margin-bottom: 30px;">
+                You have one hour to leave the house. Will you? It's ok
+            </p>
+            <button class="btn-primary" onclick="startTurn()" id="startBtn">Start Turn</button>
+        </div>
+
+        <div id="wheelScreen" class="hidden">
+	<h1>🤰 Surrender</h1>
+            <p style="text-align: center; margin-bottom: 20px;">Spin the wheel to discover your pregnancy conditions in the next hour.</p>
+            <div class="nested-wheel-container">
+                <div class="wheel-stack">
+                    <div class="wheel-pointer"></div>
+                    
+                    <div class="fortune-wheel outer-wheel" id="outerWheel">
+                        <div class="wheel-values" id="outerValues"></div>
+                    </div>
+                    
+                    <div class="fortune-wheel middle-wheel" id="middleWheel">
+                        <div class="wheel-values" id="middleValues"></div>
+                    </div>
+                    
+                    <div class="fortune-wheel inner-wheel" id="innerWheel">
+                        <div class="wheel-values" id="innerValues"></div>
+                    </div>
+                    
+                    <div class="wheel-center">SPIN</div>
+                </div>
+            </div>
+            <p style="text-align: center;">
+                <button class="btn-primary" onclick="spinFortuneWheels()" id="spinBtn">Spin the wheels to see how you are right now</button>
+                <br><small style="color: #666; margin-top: 10px; display: block;">Or click and drag on any wheel to spin!</small>
+            </p>
+            <div id="wheelResults" class="hidden">
+                <div class="arrow-indicator"></div>
+                <div class="situation-highlight">
+                    <h3 style="margin-top: 0; color: white; font-size: 24px;">Your Situation Right Now</h3>
+                    <p id="situationText" style="font-size: 20px; margin-bottom: 0;"></p>
+                    <div class="clock-display" id="currentTimeDisplay"></div>
+                </div>
+                <button class="btn-primary" onclick="showTask()">Continue to Task</button>
+            </div>
+        </div>
+
+        <div id="taskScreen" class="hidden">
+<h1>🤰 Surrender</h1>
+            <div class="task-highlight">
+                <h3 style="margin-top: 0; color: white; font-size: 24px;">Your Task</h3>
+                <p id="taskText" style="font-size: 18px;"></p>
+                <p style="color: #2c3e50; margin-bottom: 0; font-size: 20px; font-weight: bold;">Potential reward: <span id="potentialReward"></span></p>
+            </div>
+            <button class="btn-primary" onclick="startChallenge()">GO!</button>
+        </div>
+
+        <div id="challengeScreen" class="hidden">
+<h1>🤰 Surrender</h1>
+            <div class="clock-display" id="gameTimeDisplay">
+                <div class="time-info">
+                    <div>Current Time: <span id="currentTime"></span></div>
+                    <div>Must Leave By: <span id="leaveTime"></span></div>
+                </div>
+                <div class="countdown" id="gameTimer">60</div>
+            </div>
+            
+            <div class="challenge-section">
+                <h3>Your Task</h3>
+                <p id="challengeTaskText"></p>
+                <p style="color: #2c3e50; font-size: 20px; font-weight: bold;">Potential reward: <span id="challengePotentialReward"></span></p>
+            </div>
+            
+            <div class="strategies">
+                <h3>Choose your strategy:</h3>
+                <div id="strategyButtons"></div>
+            </div>
+        </div>
+
+        <div id="resultsScreen" class="hidden">
+<h1>🤰 Surrender</h1>
+            <div class="surrender-banner" id="surrenderBanner"></div>
+            <div class="results">
+                <div id="storyText"></div>
+                <p id="ovarmeeResult"></p>
+            </div>
+            <button class="btn-primary" onclick="resetGame()">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        // Game data
+        const pregnancyWeeks = [5, 8, 12, 16, 20, 24, 28, 32, 36, 40, 42];
+        const bodyConditions = [
+            "nausea no vomiting", "nausea with vomiting", "excess saliva", "constipation", 
+            "indigestion", "flatulence", "bloating", "food aversion", "cravings", 
+            "increased appetite", "extreme breast tenderness", "faintness", "dizziness", 
+            "can't find pants that fit", "have to pee", "manic energy", "fatigue", 
+            "headaches", "heartburn", "hunger"
+        ];
+        const feelings = [
+            "pride", "self-conscious", "fear of stretch marks", "irritability", "irrationality", 
+            "weepiness", "misgivings", "elation", "calm", "sense of unreality", "wonder", 
+            "anxiety", "lust", "overwhelmed", "excited", "nervous", "content", "restless", 
+            "grateful", "worried", "hopeful", "scared", "peaceful", "frustrated", "joyful"
+        ];
+
+        const tasks = [
+            // Making food tasks
+            { 
+                task: "make breakfast before you leave home", 
+                difficulty: "apple",
+                description: "make breakfast",
+                category: "making_food"
+            },
+            { 
+                task: "make lunch before you leave home", 
+                difficulty: "orange",
+                description: "make lunch",
+                category: "making_food"
+            },
+            { 
+                task: "make dinner before you leave home", 
+                difficulty: "banana",
+                description: "make dinner",
+                category: "making_food"
+            },
+            { 
+                task: "make a snack before you leave home", 
+                difficulty: "cherry",
+                description: "make a snack",
+                category: "making_food"
+            },
+            { 
+                task: "make a meal for a potluck before you leave home", 
+                difficulty: "mango",
+                description: "make a meal for a potluck",
+                category: "making_food"
+            },
+            // Life admin tasks
+            {
+                task: "call your landlord about water damage in the bedroom before you leave home",
+                difficulty: "grapefruit",
+                description: "call your landlord about water damage in the bedroom",
+                category: "life_admin"
+            },
+            {
+                task: "find a plumber to unclog a slow drain before you leave home",
+                difficulty: "orange",
+                description: "find a plumber to unclog a slow drain",
+                category: "life_admin"
+            },
+            {
+                task: "transfer a payment for the bed you finally ordered before you leave home",
+                difficulty: "apple",
+                description: "transfer a payment for the bed you finally ordered",
+                category: "life_admin"
+            },
+            {
+                task: "call your car mechanic to know how bad the damage is before you leave home",
+                difficulty: "pineapple",
+                description: "call your car mechanic to know how bad the damage is",
+                category: "life_admin"
+            },
+            {
+                task: "call the bank about a questionable charge on your credit card before you leave home",
+                difficulty: "coconut",
+                description: "call the bank about a questionable charge on your credit card",
+                category: "life_admin"
+            },
+            {
+                task: "book flights to visit your mom for her birthday before you leave home",
+                difficulty: "watermelon",
+                description: "book flights to visit your mom for her birthday",
+                category: "life_admin"
+            },
+            // Getting ready tasks
+            {
+                task: "get dressed for work before you leave home",
+                difficulty: "banana",
+                description: "get dressed for work",
+                category: "getting_ready"
+            },
+            {
+                task: "shower before you leave home",
+                difficulty: "orange",
+                description: "shower",
+                category: "getting_ready"
+            },
+            {
+                task: "find a pair of clean pants that fit before you leave home",
+                difficulty: "grapefruit",
+                description: "find a pair of clean pants that fit",
+                category: "getting_ready"
+            },
+            {
+                task: "do your hair and makeup before you leave home",
+                difficulty: "mango",
+                description: "do your hair and makeup",
+                category: "getting_ready"
+            },
+            {
+                task: "floss and brush your teeth before you leave home",
+                difficulty: "cherry",
+                description: "floss and brush your teeth",
+                category: "getting_ready"
+            },
+            // Housework tasks
+            {
+                task: "pick up the living room before you leave home",
+                difficulty: "banana",
+                description: "pick up the living room",
+                category: "housework"
+            },
+            {
+                task: "fold and put away the laundry before you leave home",
+                difficulty: "orange",
+                description: "fold and put away the laundry",
+                category: "housework"
+            },
+            {
+                task: "load and start the dishwasher before you leave home",
+                difficulty: "apple",
+                description: "load and start the dishwasher",
+                category: "housework"
+            }
+        ];
+
+        const fruitScores = {
+            cherry: 50, apple: 100, orange: 150, banana: 200, mango: 250, 
+            grapefruit: 300, pineapple: 350, coconut: 400, watermelon: 500
+        };
+
+        const strategiesByCategory = {
+            making_food: [
+                "Ask Partneer for help",
+                "Open the fridge and graze on whatever can be eaten without cooking: baby carrots, hummus, Wiener würstchen, an apple, string cheese",
+                "Make a beautiful, colorful Müsli, loaded with fruits and seeds to feed mommy & baby",
+                "You can grab a sandwich from the corner kiosk, why bother to cook?",
+                "Open the fridge, scan countless options, feel overwhelmed by choices and turn around to lay down on the couch in the fetal position"
+            ],
+            life_admin: [
+                "Ask Partneer for help",
+                "Close your eyes, take a deep breath and just start",
+                "Nothing can stress me. You make tea, straighten the table and feel the power of a tidy space. Let's go.",
+                "You open your to-do list on your phone and see your task. The phone was your first mistake. You open Instagram. You're fucked.",
+                "You check in with your body, heart and soul. It's no good. Today is not a day for life admin. You curl back under the covers."
+            ],
+            getting_ready: [
+                "Ask Partneer for help",
+                "You visualize how nice it will feel to look clean, kempt and cute. It motivates you out of bed.",
+                "You get up and immediately wash your face. The cold water wakes you up enough to take on any task.",
+                "You have a moment of despair, you feel foreign in your body. You don't think anything will make you feel confident in public right now…",
+                "No…no. Today is for staying in bed."
+            ],
+            housework: [
+                "Ask Partneer for help",
+                "You play pump up music. You look at yourself in the mirror and say 'today's the day'. It's not like THE day. But it's enough to get you over the hump and out the door.",
+                "You tap into your most disciplined self. You grit your teeth. Nothing can stop you.",
+                "Are there guests coming over today? No. This can wait until tomorrow.",
+                "Mmm, yeah no. Not today. It can wait."
+              ],
+        general: [
+            "Ask Partneer for support",
+            "Complete the task quickly and efficiently", 
+            "Take time to do this properly and mindfully",
+            "Listen to your body and modify your approach",
+            "Surrender to the situation and let it go"
+        ]
+    };
+
+    const outcomes = {
+        making_food: {
+            leftHouse: [
+                "That meal gave you new life, wow, so energized to go out!",
+                "The nice neighbor brings over some yummy cake right as you're wondering what to eat. Perfect timing!",
+                "You still feel like shit, but power your way out of the house.",
+                "Partneer wants to vent about work while you're trying to eat. You listen and still make it out.",
+                "You burn the food but eat it anyway. At least you tried!"
+            ],
+            stayedHome: [
+                    "You got so absorbed in cooking that time flew by. At least you have a delicious meal!",
+                    "Cooking was therapeutic, but now you're too tired to leave.",
+                    "You realize you forgot a key ingredient halfway through. Time to surrender.",
+                    "The kitchen is now a disaster zone. You'll clean it tomorrow.",
+                    "You made too much food and now feel obligated to eat it all."
+                ]
+            },
+            life_admin: {
+                leftHouse: [
+                    "Task completed! You feel like you can conquer the world.",
+                    "You handled that like a boss and still have energy to go out.",
+                    "It wasn't as bad as you thought. Sometimes adulting works out!",
+                    "You're stressed but accomplished. Fresh air will help.",
+                    "One less thing on your to-do list. Freedom!"
+                ],
+                stayedHome: [
+                    "You spent 40 minutes on hold and gave up. Maybe tomorrow.",
+                    "The website crashed just as you were finishing. Technology wins today.",
+                    "You completed the task but it drained all your energy for leaving.",
+                    "Bureaucracy is exhausting. You need a nap now.",
+                    "You got transferred to three different departments. Surrender."
+                ]
+            },
+            getting_ready: {
+                leftHouse: [
+                    "You look and feel amazing! Ready to take on the world.",
+                    "Nothing fits quite right, but you're clean and that's enough.",
+                    "You feel human again. Sometimes self-care is the answer.",
+                    "You're running late but at least you look presentable.",
+                    "Good enough is good enough. Out the door you go!"
+                ],
+                stayedHome: [
+                    "You tried on five outfits and hate them all. Back to pajamas.",
+                    "The shower was so relaxing you lost track of time completely.",
+                    "Looking in the mirror was a mistake. Today is a hat day, but you don't have the energy to find one.",
+                    "You started getting ready but got distracted by a skincare routine that took forever.",
+                    "Everything feels wrong today. Your body, your clothes, your face. Tomorrow will be better."
+                ]
+            },
+            housework: {
+                leftHouse: [
+                    "A tidy space gives you a clear mind. You're ready for anything!",
+                    "It's not perfect, but it's better. You can live with 'good enough.'",
+                    "You put on music and made it fun. Dancing while cleaning counts as exercise!",
+                    "You found three things you thought you'd lost forever. Bonus!",
+                    "You did the bare minimum but hey, progress is progress."
+                ],
+                stayedHome: [
+                    "You started organizing one drawer and somehow ended up reorganizing the entire room. Oops.",
+                    "You found old photos and spent an hour reminiscing instead of cleaning.",
+                    "The mess seemed to multiply while you were cleaning. How is that possible?",
+                    "You got overwhelmed by the scope of the task. Tomorrow's problem now.",
+                    "You cleaned for 10 minutes and decided that was enough productivity for today."
+                ]
+            }
+        };
+
+        // Game state - using variables instead of localStorage for compatibility
+        let gameState = {
+            totalOvarmees: 0,
+            playsToday: 0,
+            lastPlayDate: '',
+            currentTask: null,
+            currentSituation: {},
+            gameTimer: null,
+            timeLeft: 60,
+            startTime: null,
+            leaveTime: null
+        };
+
+        // Check if it's a new day
+        function checkNewDay() {
+            const today = new Date().toDateString();
+            if (gameState.lastPlayDate !== today) {
+                gameState.playsToday = 0;
+                gameState.lastPlayDate = today;
+            }
+        }
+
+        // Update display
+        function updateDisplay() {
+            document.getElementById('totalOvarmees').textContent = gameState.totalOvarmees;
+            document.getElementById('cornerOvarmees').textContent = gameState.totalOvarmees;
+            document.getElementById('playsToday').textContent = gameState.playsToday;
+            
+            // Show/hide ovarmees corner
+            if (gameState.totalOvarmees > 0) {
+                document.getElementById('ovarmeesCorner').classList.remove('hidden');
+            }
+            
+            // Check if player can play
+            if (gameState.playsToday >= 3) {
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('startBtn').textContent = 'Come back tomorrow for more!';
+            }
+        }
+
+        // Initialize wheels
+        function initializeWheels() {
+            populateWheel('outerValues', pregnancyWeeks, 175, 11);
+            populateWheel('middleValues', bodyConditions, 125, 20);
+            populateWheel('innerValues', feelings, 75, 25);
+            
+            // Add drag functionality
+            addWheelDragFunctionality('outerWheel');
+            addWheelDragFunctionality('middleWheel');
+            addWheelDragFunctionality('innerWheel');
+        }
+
+        function populateWheel(containerId, items, radius, itemCount) {
+            const container = document.getElementById(containerId);
+            const angleStep = 360 / itemCount;
+            
+            for (let i = 0; i < itemCount; i++) {
+                const angle = i * angleStep;
+                const item = items[i % items.length];
+                const wheelValue = document.createElement('div');
+                wheelValue.className = 'wheel-value';
+                wheelValue.textContent = typeof item === 'number' ? item : item.substring(0, 3);
+                
+                // Position the value
+                const radian = (angle - 90) * (Math.PI / 180);
+                const x = Math.cos(radian) * radius;
+                const y = Math.sin(radian) * radius;
+                
+                wheelValue.style.left = `calc(50% + ${x}px - 10px)`;
+                wheelValue.style.top = `calc(50% + ${y}px - 10px)`;
+                wheelValue.style.transform = `rotate(${angle}deg)`;
+                
+                container.appendChild(wheelValue);
+            }
+        }
+
+        function addWheelDragFunctionality(wheelId) {
+            const wheel = document.getElementById(wheelId);
+            let isDragging = false;
+            let startAngle = 0;
+            let currentRotation = 0;
+
+            wheel.addEventListener('mousedown', startDrag);
+            wheel.addEventListener('touchstart', startDrag);
+
+            function startDrag(e) {
+                if (wheel.classList.contains('spinning')) return;
+                
+                isDragging = true;
+                const rect = wheel.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+                
+                startAngle = Math.atan2(clientY - centerY, clientX - centerX);
+                
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('touchmove', drag);
+                document.addEventListener('mouseup', endDrag);
+                document.addEventListener('touchend', endDrag);
+                
+                e.preventDefault();
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+                
+                const rect = wheel.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+                
+                const currentAngle = Math.atan2(clientY - centerY, clientX - centerX);
+                const deltaAngle = currentAngle - startAngle;
+                
+                currentRotation += deltaAngle * (180 / Math.PI);
+                wheel.style.transform = `rotate(${currentRotation}deg)`;
+                
+                startAngle = currentAngle;
+                e.preventDefault();
+            }
+
+            function endDrag() {
+                isDragging = false;
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('mouseup', endDrag);
+                document.removeEventListener('touchend', endDrag);
+                
+                // Trigger spin results if dragged significantly
+                if (Math.abs(currentRotation) > 45) {
+                    setTimeout(() => {
+                        showWheelResults();
+                    }, 500);
+                }
+            }
+        }
+
+        // Game functions
+        function startTurn() {
+            if (gameState.playsToday >= 3) return;
+            
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('wheelScreen').classList.remove('hidden');
+        }
+
+        function spinFortuneWheels() {
+            const wheels = ['outerWheel', 'middleWheel', 'innerWheel'];
+            const spinBtn = document.getElementById('spinBtn');
+            
+            spinBtn.disabled = true;
+            
+            wheels.forEach((wheelId, index) => {
+                const wheel = document.getElementById(wheelId);
+                wheel.classList.add('spinning');
+                
+                // Different spin durations for visual effect
+                setTimeout(() => {
+                    wheel.classList.remove('spinning');
+                    wheel.classList.add('wheel-settling');
+                    
+                    setTimeout(() => {
+                        wheel.classList.remove('wheel-settling');
+                    }, 500);
+                }, 3000 + (index * 200));
+            });
+            
+            setTimeout(() => {
+                showWheelResults();
+            }, 4000);
+        }
+
+        function showWheelResults() {
+            // Generate random situation
+            const week = pregnancyWeeks[Math.floor(Math.random() * pregnancyWeeks.length)];
+            const condition = bodyConditions[Math.floor(Math.random() * bodyConditions.length)];
+            const feeling = feelings[Math.floor(Math.random() * feelings.length)];
+            
+            gameState.currentSituation = { week, condition, feeling };
+            
+            // Generate time
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const leaveHour = hours + 1;
+            
+            gameState.startTime = now;
+            gameState.leaveTime = new Date(now.getTime() + 60 * 60 * 1000);
+            
+            const situationText = `You are ${week} weeks pregnant, experiencing ${condition}, and feeling ${feeling}.`;
+            document.getElementById('situationText').textContent = situationText;
+            
+            const timeDisplay = `
+                <div class="time-info">
+                    <div>Current Time: ${formatTime(now)}</div>
+                    <div>Must Leave By: ${formatTime(gameState.leaveTime)}</div>
+                </div>
+            `;
+            document.getElementById('currentTimeDisplay').innerHTML = timeDisplay;
+            
+            document.getElementById('wheelResults').classList.remove('hidden');
+            document.getElementById('spinBtn').style.display = 'none';
+        }
+
+        function showTask() {
+            // Select random task
+            gameState.currentTask = tasks[Math.floor(Math.random() * tasks.length)];
+            
+            document.getElementById('taskText').textContent = gameState.currentTask.task;
+            document.getElementById('potentialReward').textContent = `${fruitScores[gameState.currentTask.difficulty]} Ovarmees (${gameState.currentTask.difficulty})`;
+            
+            document.getElementById('wheelScreen').classList.add('hidden');
+            document.getElementById('taskScreen').classList.remove('hidden');
+        }
+
+        function startChallenge() {
+            document.getElementById('challengeTaskText').textContent = gameState.currentTask.task;
+            document.getElementById('challengePotentialReward').textContent = `${fruitScores[gameState.currentTask.difficulty]} Ovarmees (${gameState.currentTask.difficulty})`;
+            
+            // Set up timer
+            updateTimeDisplay();
+            gameState.gameTimer = setInterval(updateTimer, 1000);
+            
+            // Create strategy buttons
+            createStrategyButtons();
+            
+            document.getElementById('taskScreen').classList.add('hidden');
+            document.getElementById('challengeScreen').classList.remove('hidden');
+        }
+
+        function updateTimeDisplay() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = formatTime(now);
+            document.getElementById('leaveTime').textContent = formatTime(gameState.leaveTime);
+            
+            const timeLeft = Math.max(0, Math.floor((gameState.leaveTime - now) / 1000));
+            gameState.timeLeft = timeLeft;
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('gameTimer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateTimer() {
+            updateTimeDisplay();
+            
+            if (gameState.timeLeft <= 0) {
+                clearInterval(gameState.gameTimer);
+                // Auto-surrender when time runs out
+                chooseStrategy(4); // Last strategy is usually surrender
+            }
+        }
+
+        function createStrategyButtons() {
+            const container = document.getElementById('strategyButtons');
+            container.innerHTML = '';
+            
+            const strategies = strategiesByCategory[gameState.currentTask.category] || strategiesByCategory.general;
+            
+            strategies.forEach((strategy, index) => {
+                const button = document.createElement('button');
+                button.className = 'strategy-btn';
+                button.textContent = strategy;
+                button.onclick = () => chooseStrategy(index);
+                container.appendChild(button);
+            });
+        }
+
+        function chooseStrategy(strategyIndex) {
+            clearInterval(gameState.gameTimer);
+            
+            // Disable all strategy buttons
+            const buttons = document.querySelectorAll('.strategy-btn');
+            buttons.forEach(btn => btn.disabled = true);
+            
+            // Determine outcome based on strategy and time pressure
+            const timeRemaining = gameState.timeLeft;
+            const strategies = strategiesByCategory[gameState.currentTask.category] || strategiesByCategory.general;
+            const chosenStrategy = strategies[strategyIndex];
+            
+            // Simple outcome logic
+            let leftHouse = false;
+            let storyOutcome = "";
+            
+            if (strategyIndex === 0) { // Ask for help
+                leftHouse = Math.random() > 0.3; // 70% chance of success with help
+            } else if (strategyIndex === strategies.length - 1) { // Last option is usually surrender
+                leftHouse = false;
+            } else if (timeRemaining > 30) { // Plenty of time
+                leftHouse = Math.random() > 0.4; // 60% chance
+            } else if (timeRemaining > 10) { // Some time pressure
+                leftHouse = Math.random() > 0.6; // 40% chance
+            } else { // Very little time
+                leftHouse = Math.random() > 0.8; // 20% chance
+            }
+            
+            // Get story outcome
+            const categoryOutcomes = outcomes[gameState.currentTask.category];
+            if (categoryOutcomes) {
+                const outcomeArray = leftHouse ? categoryOutcomes.leftHouse : categoryOutcomes.stayedHome;
+                storyOutcome = outcomeArray[Math.floor(Math.random() * outcomeArray.length)];
+            }
+            
+            setTimeout(() => {
+                showResults(leftHouse, chosenStrategy, storyOutcome);
+            }, 1000);
+        }
+
+        function showResults(leftHouse, strategy, storyOutcome) {
+            let bannerText = "";
+            let ovarmeeReward = 0;
+            
+            if (leftHouse) {
+                bannerText = "🎉 You left the house! 🎉";
+                ovarmeeReward = fruitScores[gameState.currentTask.difficulty];
+            } else {
+                bannerText = "🏠 You stayed home (and that's okay) 🏠";
+                ovarmeeReward = Math.floor(fruitScores[gameState.currentTask.difficulty] * 0.3); // Partial credit
+            }
+            
+            document.getElementById('surrenderBanner').textContent = bannerText;
+            
+            const storyText = `
+                <h3>Your strategy:</h3>
+                <p>"${strategy}"</p>
+                <h3>What happened:</h3>
+                <p>${storyOutcome}</p>
+            `;
+            document.getElementById('storyText').innerHTML = storyText;
+            
+            document.getElementById('ovarmeeResult').innerHTML = `<span class="fruit-score">+${ovarmeeReward} Ovarmees!</span>`;
+            
+            // Update game state
+            gameState.totalOvarmees += ovarmeeReward;
+            gameState.playsToday++;
+            
+            updateDisplay();
+            
+            document.getElementById('challengeScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+        }
+
+        function resetGame() {
+            // Reset game state for new turn
+            gameState.currentTask = null;
+            gameState.currentSituation = {};
+            gameState.timeLeft = 60;
+            
+            // Reset wheel rotations
+            const wheels = ['outerWheel', 'middleWheel', 'innerWheel'];
+            wheels.forEach(wheelId => {
+                const wheel = document.getElementById(wheelId);
+                wheel.style.transform = 'rotate(0deg)';
+            });
+            
+            // Show appropriate screen
+            if (gameState.playsToday >= 3) {
+                document.getElementById('resultsScreen').classList.add('hidden');
+                document.getElementById('startScreen').classList.remove('hidden');
+                updateDisplay();
+            } else {
+                document.getElementById('resultsScreen').classList.add('hidden');
+                document.getElementById('startScreen').classList.remove('hidden');
+                document.getElementById('wheelResults').classList.add('hidden');
+                document.getElementById('spinBtn').style.display = 'block';
+                document.getElementById('spinBtn').disabled = false;
+            }
+        }
+
+        function formatTime(date) {
+            return date.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: false 
+            });
+        }
+
+        // Initialize game
+        document.addEventListener('DOMContentLoaded', function() {
+            checkNewDay();
+            updateDisplay();
+            initializeWheels();
+        });
+    </script>
+</body>
+</html>

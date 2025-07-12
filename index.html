@@ -30,7 +30,7 @@
             color: white;
             padding: 12px 20px;
             border-radius: 25px;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            font-family: 'Fredoka One', sans-serif;
             font-size: 14px;
             font-weight: bold;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
@@ -57,8 +57,8 @@
             font-style: italic;
         }
         h3 {
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-weight: bold;
+            font-family: 'Fredoka One', sans-serif;
+            font-weight: 400;
             color: #2c3e50;
             font-size: 22px;
         }
@@ -68,8 +68,8 @@
             padding: 20px;
             background: #ffeaa7;
             border-radius: 20px;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-weight: bold;
+            font-family: 'Fredoka One', sans-serif;
+            font-weight: 400;
             font-size: 18px;
             color: #2d3436;
         }
@@ -180,8 +180,7 @@
             width: 100%;
             height: 100%;
             color: white;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-weight: 400;
+            font-weight: bold;
             font-size: 12px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
             pointer-events: none;
@@ -194,11 +193,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0,0,0,0.4);
-            border-radius: 8px;
-            border: 2px solid rgba(255,255,255,0.8);
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-weight: 400;
+            background: rgba(0,0,0,0.3);
+            border-radius: 3px;
+            border: 1px solid rgba(255,255,255,0.5);
         }
         .wheel-pointer {
             position: absolute;
@@ -234,30 +231,27 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: #ff6b35;
+            width: 40px;
+            height: 40px;
+            background: #2c3e50;
             border-radius: 50%;
             z-index: 50;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-weight: 400;
-            font-size: 16px;
-            border: 4px solid white;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+            font-weight: bold;
+            font-size: 12px;
         }
         .challenge-section {
-            background: #74b9ff;
-            padding: 25px;
-            border-radius: 20px;
-            margin: 25px 0;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 6px solid #d63031;
+            font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
             color: white;
-            font-weight: 400;
-            font-size: 18px;
+            font-weight: 500;
         }
         .situation-highlight {
             background: #00cec9;
@@ -282,31 +276,32 @@
             font-size: 18px;
         }
         .clock-display {
-            background: #6c5ce7;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
             color: white;
-            padding: 25px;
-            border-radius: 20px;
-            margin: 25px 0;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
             text-align: center;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            border: 4px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         .time-info {
-            font-size: 18px;
-            margin-bottom: 15px;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-weight: 400;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+            font-weight: bold;
         }
         .time-info div {
-            margin: 10px 0;
+            margin: 8px 0;
         }
         .countdown {
-            font-size: 48px;
-            font-weight: 400;
+            font-size: 42px;
+            font-weight: bold;
             color: #ffeaa7;
-            margin-top: 20px;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
+            margin-top: 15px;
+            font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .strategies {
             margin: 20px 0;
@@ -314,85 +309,63 @@
         .strategy-btn {
             display: block;
             width: 100%;
-            padding: 20px;
-            margin: 15px 0;
-            background: #00b894;
+            padding: 15px;
+            margin: 10px 0;
+            background: #3498db;
             color: white;
             border: none;
-            border-radius: 15px;
+            border-radius: 5px;
             cursor: pointer;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
             font-size: 16px;
-            font-weight: 400;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: background 0.3s;
         }
         .strategy-btn:hover {
-            background: #00a085;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            background: #2980b9;
         }
         .strategy-btn:disabled {
             background: #bdc3c7;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        }
+        .results {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
         }
         .btn-primary {
-            background: #e17055;
+            background: #27ae60;
             color: white;
             border: none;
-            padding: 20px 40px;
-            border-radius: 30px;
+            padding: 15px 30px;
+            border-radius: 5px;
             cursor: pointer;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-size: 22px;
-            font-weight: 400;
+            font-size: 18px;
             display: block;
-            margin: 30px auto;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin: 20px auto;
         }
         .btn-primary:hover {
-            background: #d63031;
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(0,0,0,0.3);
+            background: #219a52;
         }
         .btn-primary:disabled {
             background: #bdc3c7;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        .results {
-            background: #a8e6cf;
-            padding: 30px;
-            border-radius: 20px;
-            margin: 25px 0;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-weight: 400;
-            color: #2d3436;
-            font-size: 18px;
         }
         .fruit-score {
-            font-size: 24px;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-weight: 400;
+            font-size: 20px;
+            font-weight: bold;
             color: #2c3e50;
         }
         .surrender-banner {
-            background: #6c5ce7;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 30px;
-            border-radius: 25px;
-            margin: 25px 0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
             text-align: center;
-            font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', sans-serif;
-            font-size: 22px;
-            font-weight: 400;
+            font-size: 18px;
             font-style: italic;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .arrow-indicator {
             text-align: center;
@@ -466,7 +439,7 @@
         </div>
 
         <div id="wheelScreen" class="hidden">
-	<h1>🤰 Surrender</h1>
+            <h1>🤰 Surrender</h1>
             <p style="text-align: center; margin-bottom: 20px;">Spin the wheel to discover your pregnancy conditions in the next hour.</p>
             <div class="nested-wheel-container">
                 <div class="wheel-stack">
@@ -503,17 +476,17 @@
         </div>
 
         <div id="taskScreen" class="hidden">
-<h1>🤰 Surrender</h1>
+            <h1>🤰 Surrender</h1>
             <div class="task-highlight">
                 <h3 style="margin-top: 0; color: white; font-size: 24px;">Your Task</h3>
                 <p id="taskText" style="font-size: 18px;"></p>
-                <p style="color: #2c3e50; margin-bottom: 0; font-size: 20px; font-weight: bold;">Potential reward: <span id="potentialReward"></span></p>
+                <p class="fruit-score" style="color: #ffeaa7; margin-bottom: 0;">Potential reward: <span id="potentialReward"></span></p>
             </div>
             <button class="btn-primary" onclick="startChallenge()">GO!</button>
         </div>
 
         <div id="challengeScreen" class="hidden">
-<h1>🤰 Surrender</h1>
+            <h1>🤰 Surrender</h1>
             <div class="clock-display" id="gameTimeDisplay">
                 <div class="time-info">
                     <div>Current Time: <span id="currentTime"></span></div>
@@ -525,7 +498,7 @@
             <div class="challenge-section">
                 <h3>Your Task</h3>
                 <p id="challengeTaskText"></p>
-                <p style="color: #2c3e50; font-size: 20px; font-weight: bold;">Potential reward: <span id="challengePotentialReward"></span></p>
+                <p class="fruit-score">Potential reward: <span id="challengePotentialReward"></span></p>
             </div>
             
             <div class="strategies">
@@ -535,7 +508,7 @@
         </div>
 
         <div id="resultsScreen" class="hidden">
-<h1>🤰 Surrender</h1>
+            <h1>🤰 Surrender</h1>
             <div class="surrender-banner" id="surrenderBanner"></div>
             <div class="results">
                 <div id="storyText"></div>
@@ -716,470 +689,42 @@
                 "You tap into your most disciplined self. You grit your teeth. Nothing can stop you.",
                 "Are there guests coming over today? No. This can wait until tomorrow.",
                 "Mmm, yeah no. Not today. It can wait."
-              ],
-        general: [
-            "Ask Partneer for support",
-            "Complete the task quickly and efficiently", 
-            "Take time to do this properly and mindfully",
-            "Listen to your body and modify your approach",
-            "Surrender to the situation and let it go"
-        ]
-    };
+            ],
+            general: [
+                "Ask Partneer for support",
+                "Complete the task quickly and efficiently", 
+                "Take time to do this properly and mindfully",
+                "Listen to your body and modify your approach",
+                "Surrender to the situation and let it go"
+            ]
+        };
 
-    const outcomes = {
-        making_food: {
+        const foodOutcomes = {
             leftHouse: [
                 "That meal gave you new life, wow, so energized to go out!",
-                "The nice neighbor brings over some yummy cake right as you're wondering what to eat. Perfect timing!",
+                "The nice neighbor brings over some yummy cake right as you're wondering what to eat. Woop!",
                 "You still feel like shit, but power your way out of the house.",
-                "Partneer wants to vent about work while you're trying to eat. You listen and still make it out.",
-                "You burn the food but eat it anyway. At least you tried!"
+                "Partneer wants to vent about a colleague. Shut upppp. I will leave this house no matter how I feel.",
+                "Partneer steps in and finishes cooking, that was nice. I can leave now.",
+                "You're pretty sure fresh air is the only meal you need, let's just get out of here",
+                "You don't feel well but you are committed to getting out of this house, finally. Your face hasn't seen the sun in some time…"
             ],
             stayedHome: [
-                    "You got so absorbed in cooking that time flew by. At least you have a delicious meal!",
-                    "Cooking was therapeutic, but now you're too tired to leave.",
-                    "You realize you forgot a key ingredient halfway through. Time to surrender.",
-                    "The kitchen is now a disaster zone. You'll clean it tomorrow.",
-                    "You made too much food and now feel obligated to eat it all."
-                ]
-            },
-            life_admin: {
-                leftHouse: [
-                    "Task completed! You feel like you can conquer the world.",
-                    "You handled that like a boss and still have energy to go out.",
-                    "It wasn't as bad as you thought. Sometimes adulting works out!",
-                    "You're stressed but accomplished. Fresh air will help.",
-                    "One less thing on your to-do list. Freedom!"
-                ],
-                stayedHome: [
-                    "You spent 40 minutes on hold and gave up. Maybe tomorrow.",
-                    "The website crashed just as you were finishing. Technology wins today.",
-                    "You completed the task but it drained all your energy for leaving.",
-                    "Bureaucracy is exhausting. You need a nap now.",
-                    "You got transferred to three different departments. Surrender."
-                ]
-            },
-            getting_ready: {
-                leftHouse: [
-                    "You look and feel amazing! Ready to take on the world.",
-                    "Nothing fits quite right, but you're clean and that's enough.",
-                    "You feel human again. Sometimes self-care is the answer.",
-                    "You're running late but at least you look presentable.",
-                    "Good enough is good enough. Out the door you go!"
-                ],
-                stayedHome: [
-                    "You tried on five outfits and hate them all. Back to pajamas.",
-                    "The shower was so relaxing you lost track of time completely.",
-                    "Looking in the mirror was a mistake. Today is a hat day, but you don't have the energy to find one.",
-                    "You started getting ready but got distracted by a skincare routine that took forever.",
-                    "Everything feels wrong today. Your body, your clothes, your face. Tomorrow will be better."
-                ]
-            },
-            housework: {
-                leftHouse: [
-                    "A tidy space gives you a clear mind. You're ready for anything!",
-                    "It's not perfect, but it's better. You can live with 'good enough.'",
-                    "You put on music and made it fun. Dancing while cleaning counts as exercise!",
-                    "You found three things you thought you'd lost forever. Bonus!",
-                    "You did the bare minimum but hey, progress is progress."
-                ],
-                stayedHome: [
-                    "You started organizing one drawer and somehow ended up reorganizing the entire room. Oops.",
-                    "You found old photos and spent an hour reminiscing instead of cleaning.",
-                    "The mess seemed to multiply while you were cleaning. How is that possible?",
-                    "You got overwhelmed by the scope of the task. Tomorrow's problem now.",
-                    "You cleaned for 10 minutes and decided that was enough productivity for today."
-                ]
-            }
+                "You spill on your pants, and it's coffee. You struggle to treat the stain, and find another pair of pants that fit and go with the rest of your outfit before the clock is up.",
+                "Bit off more than you can chew: Now I need a nap.",
+                "Eyes bigger than your stomach: Now I need a nap.", 
+                "Phew. That was good. I'll lay down and I'm sure I'll feel better when I digest this…",
+                "Partneer gives such a sweet hug. I don't need to push it today.",
+                "Partneer eats it all. WTF time to make seconds I guess",
+                "What is time anyway? Wouldn't everything be better if we just followed the natural rhythms of the body?",
+                "Smaller meals more frequently is some bullshit I am so hungry still and I am out of time to make this appointment",
+                "If I make an entire second meal, isn't that for the baby technically? I'm not going out"
+            ]
         };
 
-        // Game state - using variables instead of localStorage for compatibility
-        let gameState = {
-            totalOvarmees: 0,
-            playsToday: 0,
-            lastPlayDate: '',
-            currentTask: null,
-            currentSituation: {},
-            gameTimer: null,
-            timeLeft: 60,
-            startTime: null,
-            leaveTime: null
-        };
-
-        // Check if it's a new day
-        function checkNewDay() {
-            const today = new Date().toDateString();
-            if (gameState.lastPlayDate !== today) {
-                gameState.playsToday = 0;
-                gameState.lastPlayDate = today;
-            }
-        }
-
-        // Update display
-        function updateDisplay() {
-            document.getElementById('totalOvarmees').textContent = gameState.totalOvarmees;
-            document.getElementById('cornerOvarmees').textContent = gameState.totalOvarmees;
-            document.getElementById('playsToday').textContent = gameState.playsToday;
-            
-            // Show/hide ovarmees corner
-            if (gameState.totalOvarmees > 0) {
-                document.getElementById('ovarmeesCorner').classList.remove('hidden');
-            }
-            
-            // Check if player can play
-            if (gameState.playsToday >= 3) {
-                document.getElementById('startBtn').disabled = true;
-                document.getElementById('startBtn').textContent = 'Come back tomorrow for more!';
-            }
-        }
-
-        // Initialize wheels
-        function initializeWheels() {
-            populateWheel('outerValues', pregnancyWeeks, 175, 11);
-            populateWheel('middleValues', bodyConditions, 125, 20);
-            populateWheel('innerValues', feelings, 75, 25);
-            
-            // Add drag functionality
-            addWheelDragFunctionality('outerWheel');
-            addWheelDragFunctionality('middleWheel');
-            addWheelDragFunctionality('innerWheel');
-        }
-
-        function populateWheel(containerId, items, radius, itemCount) {
-            const container = document.getElementById(containerId);
-            const angleStep = 360 / itemCount;
-            
-            for (let i = 0; i < itemCount; i++) {
-                const angle = i * angleStep;
-                const item = items[i % items.length];
-                const wheelValue = document.createElement('div');
-                wheelValue.className = 'wheel-value';
-                wheelValue.textContent = typeof item === 'number' ? item : item.substring(0, 3);
-                
-                // Position the value
-                const radian = (angle - 90) * (Math.PI / 180);
-                const x = Math.cos(radian) * radius;
-                const y = Math.sin(radian) * radius;
-                
-                wheelValue.style.left = `calc(50% + ${x}px - 10px)`;
-                wheelValue.style.top = `calc(50% + ${y}px - 10px)`;
-                wheelValue.style.transform = `rotate(${angle}deg)`;
-                
-                container.appendChild(wheelValue);
-            }
-        }
-
-        function addWheelDragFunctionality(wheelId) {
-            const wheel = document.getElementById(wheelId);
-            let isDragging = false;
-            let startAngle = 0;
-            let currentRotation = 0;
-
-            wheel.addEventListener('mousedown', startDrag);
-            wheel.addEventListener('touchstart', startDrag);
-
-            function startDrag(e) {
-                if (wheel.classList.contains('spinning')) return;
-                
-                isDragging = true;
-                const rect = wheel.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-                const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-                
-                startAngle = Math.atan2(clientY - centerY, clientX - centerX);
-                
-                document.addEventListener('mousemove', drag);
-                document.addEventListener('touchmove', drag);
-                document.addEventListener('mouseup', endDrag);
-                document.addEventListener('touchend', endDrag);
-                
-                e.preventDefault();
-            }
-
-            function drag(e) {
-                if (!isDragging) return;
-                
-                const rect = wheel.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-                const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-                
-                const currentAngle = Math.atan2(clientY - centerY, clientX - centerX);
-                const deltaAngle = currentAngle - startAngle;
-                
-                currentRotation += deltaAngle * (180 / Math.PI);
-                wheel.style.transform = `rotate(${currentRotation}deg)`;
-                
-                startAngle = currentAngle;
-                e.preventDefault();
-            }
-
-            function endDrag() {
-                isDragging = false;
-                document.removeEventListener('mousemove', drag);
-                document.removeEventListener('touchmove', drag);
-                document.removeEventListener('mouseup', endDrag);
-                document.removeEventListener('touchend', endDrag);
-                
-                // Trigger spin results if dragged significantly
-                if (Math.abs(currentRotation) > 45) {
-                    setTimeout(() => {
-                        showWheelResults();
-                    }, 500);
-                }
-            }
-        }
-
-        // Game functions
-        function startTurn() {
-            if (gameState.playsToday >= 3) return;
-            
-            document.getElementById('startScreen').classList.add('hidden');
-            document.getElementById('wheelScreen').classList.remove('hidden');
-        }
-
-        function spinFortuneWheels() {
-            const wheels = ['outerWheel', 'middleWheel', 'innerWheel'];
-            const spinBtn = document.getElementById('spinBtn');
-            
-            spinBtn.disabled = true;
-            
-            wheels.forEach((wheelId, index) => {
-                const wheel = document.getElementById(wheelId);
-                wheel.classList.add('spinning');
-                
-                // Different spin durations for visual effect
-                setTimeout(() => {
-                    wheel.classList.remove('spinning');
-                    wheel.classList.add('wheel-settling');
-                    
-                    setTimeout(() => {
-                        wheel.classList.remove('wheel-settling');
-                    }, 500);
-                }, 3000 + (index * 200));
-            });
-            
-            setTimeout(() => {
-                showWheelResults();
-            }, 4000);
-        }
-
-        function showWheelResults() {
-            // Generate random situation
-            const week = pregnancyWeeks[Math.floor(Math.random() * pregnancyWeeks.length)];
-            const condition = bodyConditions[Math.floor(Math.random() * bodyConditions.length)];
-            const feeling = feelings[Math.floor(Math.random() * feelings.length)];
-            
-            gameState.currentSituation = { week, condition, feeling };
-            
-            // Generate time
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const leaveHour = hours + 1;
-            
-            gameState.startTime = now;
-            gameState.leaveTime = new Date(now.getTime() + 60 * 60 * 1000);
-            
-            const situationText = `You are ${week} weeks pregnant, experiencing ${condition}, and feeling ${feeling}.`;
-            document.getElementById('situationText').textContent = situationText;
-            
-            const timeDisplay = `
-                <div class="time-info">
-                    <div>Current Time: ${formatTime(now)}</div>
-                    <div>Must Leave By: ${formatTime(gameState.leaveTime)}</div>
-                </div>
-            `;
-            document.getElementById('currentTimeDisplay').innerHTML = timeDisplay;
-            
-            document.getElementById('wheelResults').classList.remove('hidden');
-            document.getElementById('spinBtn').style.display = 'none';
-        }
-
-        function showTask() {
-            // Select random task
-            gameState.currentTask = tasks[Math.floor(Math.random() * tasks.length)];
-            
-            document.getElementById('taskText').textContent = gameState.currentTask.task;
-            document.getElementById('potentialReward').textContent = `${fruitScores[gameState.currentTask.difficulty]} Ovarmees (${gameState.currentTask.difficulty})`;
-            
-            document.getElementById('wheelScreen').classList.add('hidden');
-            document.getElementById('taskScreen').classList.remove('hidden');
-        }
-
-        function startChallenge() {
-            document.getElementById('challengeTaskText').textContent = gameState.currentTask.task;
-            document.getElementById('challengePotentialReward').textContent = `${fruitScores[gameState.currentTask.difficulty]} Ovarmees (${gameState.currentTask.difficulty})`;
-            
-            // Set up timer
-            updateTimeDisplay();
-            gameState.gameTimer = setInterval(updateTimer, 1000);
-            
-            // Create strategy buttons
-            createStrategyButtons();
-            
-            document.getElementById('taskScreen').classList.add('hidden');
-            document.getElementById('challengeScreen').classList.remove('hidden');
-        }
-
-        function updateTimeDisplay() {
-            const now = new Date();
-            document.getElementById('currentTime').textContent = formatTime(now);
-            document.getElementById('leaveTime').textContent = formatTime(gameState.leaveTime);
-            
-            const timeLeft = Math.max(0, Math.floor((gameState.leaveTime - now) / 1000));
-            gameState.timeLeft = timeLeft;
-            
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('gameTimer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        function updateTimer() {
-            updateTimeDisplay();
-            
-            if (gameState.timeLeft <= 0) {
-                clearInterval(gameState.gameTimer);
-                // Auto-surrender when time runs out
-                chooseStrategy(4); // Last strategy is usually surrender
-            }
-        }
-
-        function createStrategyButtons() {
-            const container = document.getElementById('strategyButtons');
-            container.innerHTML = '';
-            
-            const strategies = strategiesByCategory[gameState.currentTask.category] || strategiesByCategory.general;
-            
-            strategies.forEach((strategy, index) => {
-                const button = document.createElement('button');
-                button.className = 'strategy-btn';
-                button.textContent = strategy;
-                button.onclick = () => chooseStrategy(index);
-                container.appendChild(button);
-            });
-        }
-
-        function chooseStrategy(strategyIndex) {
-            clearInterval(gameState.gameTimer);
-            
-            // Disable all strategy buttons
-            const buttons = document.querySelectorAll('.strategy-btn');
-            buttons.forEach(btn => btn.disabled = true);
-            
-            // Determine outcome based on strategy and time pressure
-            const timeRemaining = gameState.timeLeft;
-            const strategies = strategiesByCategory[gameState.currentTask.category] || strategiesByCategory.general;
-            const chosenStrategy = strategies[strategyIndex];
-            
-            // Simple outcome logic
-            let leftHouse = false;
-            let storyOutcome = "";
-            
-            if (strategyIndex === 0) { // Ask for help
-                leftHouse = Math.random() > 0.3; // 70% chance of success with help
-            } else if (strategyIndex === strategies.length - 1) { // Last option is usually surrender
-                leftHouse = false;
-            } else if (timeRemaining > 30) { // Plenty of time
-                leftHouse = Math.random() > 0.4; // 60% chance
-            } else if (timeRemaining > 10) { // Some time pressure
-                leftHouse = Math.random() > 0.6; // 40% chance
-            } else { // Very little time
-                leftHouse = Math.random() > 0.8; // 20% chance
-            }
-            
-            // Get story outcome
-            const categoryOutcomes = outcomes[gameState.currentTask.category];
-            if (categoryOutcomes) {
-                const outcomeArray = leftHouse ? categoryOutcomes.leftHouse : categoryOutcomes.stayedHome;
-                storyOutcome = outcomeArray[Math.floor(Math.random() * outcomeArray.length)];
-            }
-            
-            setTimeout(() => {
-                showResults(leftHouse, chosenStrategy, storyOutcome);
-            }, 1000);
-        }
-
-        function showResults(leftHouse, strategy, storyOutcome) {
-            let bannerText = "";
-            let ovarmeeReward = 0;
-            
-            if (leftHouse) {
-                bannerText = "🎉 You left the house! 🎉";
-                ovarmeeReward = fruitScores[gameState.currentTask.difficulty];
-            } else {
-                bannerText = "🏠 You stayed home (and that's okay) 🏠";
-                ovarmeeReward = Math.floor(fruitScores[gameState.currentTask.difficulty] * 0.3); // Partial credit
-            }
-            
-            document.getElementById('surrenderBanner').textContent = bannerText;
-            
-            const storyText = `
-                <h3>Your strategy:</h3>
-                <p>"${strategy}"</p>
-                <h3>What happened:</h3>
-                <p>${storyOutcome}</p>
-            `;
-            document.getElementById('storyText').innerHTML = storyText;
-            
-            document.getElementById('ovarmeeResult').innerHTML = `<span class="fruit-score">+${ovarmeeReward} Ovarmees!</span>`;
-            
-            // Update game state
-            gameState.totalOvarmees += ovarmeeReward;
-            gameState.playsToday++;
-            
-            updateDisplay();
-            
-            document.getElementById('challengeScreen').classList.add('hidden');
-            document.getElementById('resultsScreen').classList.remove('hidden');
-        }
-
-        function resetGame() {
-            // Reset game state for new turn
-            gameState.currentTask = null;
-            gameState.currentSituation = {};
-            gameState.timeLeft = 60;
-            
-            // Reset wheel rotations
-            const wheels = ['outerWheel', 'middleWheel', 'innerWheel'];
-            wheels.forEach(wheelId => {
-                const wheel = document.getElementById(wheelId);
-                wheel.style.transform = 'rotate(0deg)';
-            });
-            
-            // Show appropriate screen
-            if (gameState.playsToday >= 3) {
-                document.getElementById('resultsScreen').classList.add('hidden');
-                document.getElementById('startScreen').classList.remove('hidden');
-                updateDisplay();
-            } else {
-                document.getElementById('resultsScreen').classList.add('hidden');
-                document.getElementById('startScreen').classList.remove('hidden');
-                document.getElementById('wheelResults').classList.add('hidden');
-                document.getElementById('spinBtn').style.display = 'block';
-                document.getElementById('spinBtn').disabled = false;
-            }
-        }
-
-        function formatTime(date) {
-            return date.toLocaleTimeString('en-US', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false 
-            });
-        }
-
-        // Initialize game
-        document.addEventListener('DOMContentLoaded', function() {
-            checkNewDay();
-            updateDisplay();
-            initializeWheels();
-        });
-    </script>
-</body>
-</html>
+        const lifeAdminOutcomes = {
+            leftHouse: [
+                "The only way out is through, my friend. You've somehow completed your task and left on time. Let's see what tomorrow will bring…",
+                "Look at you go! You dug deep, found your internal energy source and made it work.",
+                "Nothing can stop you today. No task is too great for your strength.",
+                "Phew! Today

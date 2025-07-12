@@ -722,9 +722,471 @@
             ]
         };
 
-        const lifeAdminOutcomes = {
+      const lifeAdminOutcomes = {
+    leftHouse: [
+        "The only way out is through, my friend. You've somehow completed your task and left on time. Let's see what tomorrow will bring…",
+        "Look at you go! You dug deep, found your internal energy source and made it work.",
+        "Nothing can stop you today. No task is too great for your strength.",
+        "Phew! Today you found your way through somehow. Good job."
+    ],
+    stayedHome: [
+        "The clock can run on its own. You're just not about that life right now.",
+        "It was never going to be your day, and that's okay.",
+        "You know what you're doing. You are in full control. You checked in with your body, you looked the task straight in the eyes and decided, not today. Strong choice.",
+        "At the very last minute, you checked back in with yourself. Why force it? Take your time and leave the house when the moment is right.",
+        "Just as you are about to finish the job, your phone dies. There are only 3 minutes on the clock, but you've got to charge up. It's okay to be a bit late today…"
+    ]
+};
+
+const gettingReadyOutcomes = {
+    leftHouse: [
+        "You made it. And check you out - fresh, clean, looking grand and ready for the outside world.",
+        "You check out your look in the mirror on the way out. Looking fine! Let's get out there.",
+        "The last hour took all your energy, but you're out of the house. You've done enough.",
+        "You are feeling fresh and can't wait to feel the sun on your face. The bonus? These pants make your big 'ol pregnant butt look extra tight.",
+        "CHA-CHING. You did what you needed, the rest really doesn't matter. Good on you today.",
+        "Partneer is out here being the best today - you got ready in peace and found a snack and fresh pressed juice in the kitchen to power you out the door <3"
+    ],
+            stayedHome: [
+                "You know what? The house has all you need. You have food in the fridge. You can push the rest of it off until tomorrow.",
+                "Rest is important right now. Don't worry about it, girl!",
+                "Keep in mind that your body is building a whole new person. You've done enough work for today!",
+                "There's no need to prove anything to anybody. Lay your pregnant self back down and remember that being pregnant might just be enough for today.",
+                "Don't worry about it! Your body is out here creating miracles. Maybe you have more energy for the world tomorrow. If not, that's ok too.",
+                "Don't sweat the small stuff. Not every day has to be your day. Give yourself some love."
+            ]
+        };
+
+        const houseworkOutcomes = {
             leftHouse: [
-                "The only way out is through, my friend. You've somehow completed your task and left on time. Let's see what tomorrow will bring…",
-                "Look at you go! You dug deep, found your internal energy source and made it work.",
-                "Nothing can stop you today. No task is too great for your strength.",
-                "Phew! Today
+                "A tidy space gives you a clear mind. You're ready for anything!",
+                "It's not perfect, but it's better. You can live with 'good enough.'",
+                "You put on music and made it fun. Dancing while cleaning counts as exercise!",
+                "You found three things you thought you'd lost forever. Bonus!",
+                "You did the bare minimum but hey, progress is progress."
+            ],
+            stayedHome: [
+                "You started organizing one drawer and somehow ended up reorganizing the entire room. Oops.",
+                "You found old photos and spent an hour reminiscing instead of cleaning.",
+                "The mess seemed to multiply while you were cleaning. How is that possible?",
+                "You got overwhelmed by the scope of the task. Tomorrow's problem now.",
+                "You cleaned for 10 minutes and decided that was enough productivity for today."
+            ]
+        };
+
+        const surrenderMessages = [
+            "Today you practiced deep surrender 🌸",
+            "You honored your body's wisdom today 💫",
+            "Sometimes the bravest thing is to simply be 🌙",
+            "Your body is teaching you about trust 🌿",
+            "You chose presence over perfection today ✨",
+            "Every moment of surrender is an act of love 💕",
+            "You listened to what your soul needed today 🦋",
+            "Trust and surrender are your superpowers 🌟",
+            "You embraced the unknown with grace today 🌊",
+            "Your body knows exactly what it's doing 🌺"
+        ];
+
+        let gameState = {
+            currentWeek: 0,
+            currentBody: "",
+            currentFeeling: "",
+            currentTask: null,
+            timer: 60,
+            timerInterval: null,
+            timerStarted: false,
+            totalOvarmees: 0,
+            playsToday: 0,
+            lastPlayDate: '',
+            currentTime: new Date(),
+            leaveTime: new Date()
+        };
+
+        function checkDailyReset() {
+            const today = new Date().toDateString();
+            if (gameState.lastPlayDate !== today) {
+                gameState.playsToday = 0;
+                gameState.lastPlayDate = today;
+            }
+        }
+
+        function updateDisplay() {
+            document.getElementById('totalOvarmees').textContent = gameState.totalOvarmees;
+            document.getElementById('playsToday').textContent = gameState.playsToday;
+            document.getElementById('cornerOvarmees').textContent = gameState.totalOvarmees;
+            
+            if (gameState.totalOvarmees > 0) {
+                document.getElementById('ovarmeesCorner').classList.remove('hidden');
+            }
+            
+            if (gameState.playsToday >= 3) {
+                document.getElementById('startBtn').disabled = true;
+                document.getElementById('startBtn').textContent = 'Come back tomorrow for more!';
+            }
+        }
+
+        function startTurn() {
+            if (gameState.playsToday >= 3) return;
+            
+            gameState.currentTime = new Date();
+            gameState.leaveTime = new Date(gameState.currentTime.getTime() + 60 * 60 * 1000);
+            
+            document.getElementById('mainGameStatus').classList.add('hidden');
+            document.getElementById('ovarmeesCorner').classList.remove('hidden');
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('wheelScreen').classList.remove('hidden');
+        }
+
+        function getFruitEmoji(fruit) {
+            const fruitEmojis = {
+                cherry: '🍒', apple: '🍎', orange: '🍊', banana: '🍌', mango: '🥭',
+                grapefruit: '🍊', pineapple: '🍍', coconut: '🥥', watermelon: '🍉'
+            };
+            return fruitEmojis[fruit] || '🍎';
+        }
+
+        function getOrdinalSuffix(num) {
+            const j = num % 10;
+            const k = num % 100;
+            if (j == 1 && k != 11) return "st";
+            if (j == 2 && k != 12) return "nd";
+            if (j == 3 && k != 13) return "rd";
+            return "th";
+        }
+
+        function getPregnancyDescription() {
+            const weekDesc = gameState.currentWeek >= 37 ? "Almost there!" : 
+                           gameState.currentWeek >= 28 ? "Getting close!" :
+                           gameState.currentWeek >= 20 ? "Halfway through!" :
+                           gameState.currentWeek >= 12 ? "That dreamy second trimester is close" : "Early days!";
+            
+            const templates = [
+                `You are in your ${gameState.currentWeek}${getOrdinalSuffix(gameState.currentWeek)} week of pregnancy. ${weekDesc} Right now you are experiencing ${gameState.currentBody}, and you're feeling ${gameState.currentFeeling} today.`,
+                `You are in week ${gameState.currentWeek} - ${weekDesc.toLowerCase()}. You are dealing with ${gameState.currentBody}, and you're a little bit ${gameState.currentFeeling} today.`,
+                `Week ${gameState.currentWeek} of pregnancy. ${weekDesc} Your body is experiencing ${gameState.currentBody}, while emotionally you're ${gameState.currentFeeling}.`,
+                `You're ${gameState.currentWeek} weeks pregnant. ${weekDesc} Today you're dealing with ${gameState.currentBody} and feeling quite ${gameState.currentFeeling}.`,
+                `Pregnancy week ${gameState.currentWeek}! ${weekDesc} Right now: ${gameState.currentBody}, and you're ${gameState.currentFeeling}.`,
+                `You are in your ${gameState.currentWeek}${getOrdinalSuffix(gameState.currentWeek)} week. ${weekDesc} You're experiencing ${gameState.currentBody} today, and emotionally you're feeling ${gameState.currentFeeling}.`
+            ];
+            
+            return templates[Math.floor(Math.random() * templates.length)];
+        }
+
+        function createWheelValues() {
+            const outerContainer = document.getElementById('outerValues');
+            const outerRadius = 130;
+            pregnancyWeeks.forEach((week, index) => {
+                const div = document.createElement('div');
+                div.className = 'wheel-value';
+                div.textContent = week;
+                
+                const angle = (360 / pregnancyWeeks.length) * index;
+                const radian = (angle * Math.PI) / 180;
+                const x = 175 + outerRadius * Math.cos(radian - Math.PI/2);
+                const y = 175 + outerRadius * Math.sin(radian - Math.PI/2);
+                
+                div.style.left = `${x - 12}px`;
+                div.style.top = `${y - 12}px`;
+                div.style.fontSize = '12px';
+                div.style.width = '24px';
+                div.style.height = '24px';
+                outerContainer.appendChild(div);
+            });
+
+            const middleContainer = document.getElementById('middleValues');
+            const middleRadius = 75;
+            bodyConditions.forEach((condition, index) => {
+                const div = document.createElement('div');
+                div.className = 'wheel-value';
+                div.textContent = condition.split(' ')[0];
+                
+                const angle = (360 / bodyConditions.length) * index;
+                const radian = (angle * Math.PI) / 180;
+                const x = 125 + middleRadius * Math.cos(radian - Math.PI/2);
+                const y = 125 + middleRadius * Math.sin(radian - Math.PI/2);
+                
+                div.style.left = `${x - 10}px`;
+                div.style.top = `${y - 10}px`;
+                div.style.fontSize = '9px';
+                div.style.width = '20px';
+                div.style.height = '20px';
+                middleContainer.appendChild(div);
+            });
+
+            const innerContainer = document.getElementById('innerValues');
+            const innerRadius = 35;
+            feelings.forEach((feeling, index) => {
+                const div = document.createElement('div');
+                div.className = 'wheel-value';
+                div.textContent = feeling.length > 5 ? feeling.substring(0, 4) : feeling;
+                
+                const angle = (360 / feelings.length) * index;
+                const radian = (angle * Math.PI) / 180;
+                const x = 75 + innerRadius * Math.cos(radian - Math.PI/2);
+                const y = 75 + innerRadius * Math.sin(radian - Math.PI/2);
+                
+                div.style.left = `${x - 8}px`;
+                div.style.top = `${y - 8}px`;
+                div.style.fontSize = '7px';
+                div.style.width = '16px';
+                div.style.height = '16px';
+                innerContainer.appendChild(div);
+            });
+        }
+
+        function setupWheelDragging() {
+            const wheels = ['outerWheel', 'middleWheel', 'innerWheel'];
+            let dragState = { isDragging: false, startAngle: 0, currentRotation: 0, wheel: null };
+            
+            wheels.forEach(wheelId => {
+                const wheel = document.getElementById(wheelId);
+                
+                wheel.addEventListener('mousedown', (e) => startDrag(e, wheel));
+                document.addEventListener('mousemove', (e) => dragWheel(e));
+                document.addEventListener('mouseup', () => endDrag());
+                
+                wheel.addEventListener('touchstart', (e) => startDrag(e.touches[0], wheel));
+                document.addEventListener('touchmove', (e) => dragWheel(e.touches[0]));
+                document.addEventListener('touchend', () => endDrag());
+            });
+
+            function startDrag(e, wheel) {
+                if (document.getElementById('spinBtn').disabled) return;
+                
+                dragState.isDragging = true;
+                dragState.wheel = wheel;
+                
+                const rect = wheel.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                dragState.startAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+                e.preventDefault();
+            }
+
+            function dragWheel(e) {
+                if (!dragState.isDragging || !dragState.wheel) return;
+                
+                const rect = dragState.wheel.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const currentAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+                const deltaAngle = currentAngle - dragState.startAngle;
+                
+                dragState.currentRotation += deltaAngle * (180 / Math.PI);
+                dragState.wheel.style.transform = `rotate(${dragState.currentRotation}deg)`;
+                dragState.startAngle = currentAngle;
+                
+                e.preventDefault();
+            }
+
+            function endDrag() {
+                if (!dragState.isDragging) return;
+                
+                const rotationSpeed = Math.abs(dragState.currentRotation % 360);
+                if (rotationSpeed > 30) {
+                    spinFortuneWheels();
+                }
+                
+                dragState.isDragging = false;
+                dragState.wheel = null;
+            }
+        }
+
+        function spinFortuneWheels() {
+            // Add random rotation to each wheel for visual variety
+            const outerRotation = Math.random() * 360;
+            const middleRotation = Math.random() * 360;
+            const innerRotation = Math.random() * 360;
+            
+            document.getElementById('outerWheel').style.transform = `rotate(${outerRotation}deg)`;
+            document.getElementById('middleWheel').style.transform = `rotate(${middleRotation}deg)`;
+            document.getElementById('innerWheel').style.transform = `rotate(${innerRotation}deg)`;
+            
+            document.getElementById('outerWheel').classList.add('spinning');
+            document.getElementById('middleWheel').classList.add('spinning');
+            document.getElementById('innerWheel').classList.add('spinning');
+            document.getElementById('spinBtn').disabled = true;
+
+            setTimeout(() => {
+                gameState.currentWeek = pregnancyWeeks[Math.floor(Math.random() * pregnancyWeeks.length)];
+                gameState.currentBody = bodyConditions[Math.floor(Math.random() * bodyConditions.length)];
+                gameState.currentFeeling = feelings[Math.floor(Math.random() * feelings.length)];
+
+                document.getElementById('outerWheel').classList.remove('spinning');
+                document.getElementById('middleWheel').classList.remove('spinning');
+                document.getElementById('innerWheel').classList.remove('spinning');
+                
+                document.getElementById('outerWheel').classList.add('wheel-settling');
+                document.getElementById('middleWheel').classList.add('wheel-settling');
+                document.getElementById('innerWheel').classList.add('wheel-settling');
+
+                const situationText = getPregnancyDescription();
+                document.getElementById('situationText').textContent = situationText;
+                
+                document.getElementById('currentTimeDisplay').innerHTML = 
+                    `<div class="time-info">
+                        <div>Current Time: ${gameState.currentTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                        <div>You need to leave by: ${gameState.leaveTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                    </div>`;
+                
+                document.getElementById('wheelResults').classList.remove('hidden');
+                
+                setTimeout(() => {
+                    document.getElementById('outerWheel').classList.remove('wheel-settling');
+                    document.getElementById('middleWheel').classList.remove('wheel-settling');
+                    document.getElementById('innerWheel').classList.remove('wheel-settling');
+                }, 500);
+                
+            }, 3000);
+        }
+
+        function showTask() {
+            document.getElementById('wheelScreen').classList.add('hidden');
+            document.getElementById('taskScreen').classList.remove('hidden');
+
+            gameState.currentTask = tasks[Math.floor(Math.random() * tasks.length)];
+            
+            const currentTimeStr = gameState.currentTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const leaveTimeStr = gameState.leaveTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            document.getElementById('taskText').innerHTML = 
+                `It's ${currentTimeStr} and you have to <strong>${gameState.currentTask.description}</strong>. Keep in mind that you have to leave the house by ${leaveTimeStr}.`;
+            
+            document.getElementById('potentialReward').textContent = 
+                `${fruitScores[gameState.currentTask.difficulty]} ovarmees (difficulty level: ${gameState.currentTask.difficulty} ${getFruitEmoji(gameState.currentTask.difficulty)})`;
+        }
+
+        function startChallenge() {
+            document.getElementById('taskScreen').classList.add('hidden');
+            document.getElementById('challengeScreen').classList.remove('hidden');
+
+            const currentTimeStr = gameState.currentTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const leaveTimeStr = gameState.leaveTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            document.getElementById('currentTime').textContent = currentTimeStr;
+            document.getElementById('leaveTime').textContent = leaveTimeStr;
+
+            document.getElementById('challengeTaskText').innerHTML = document.getElementById('taskText').innerHTML;
+            document.getElementById('challengePotentialReward').textContent = document.getElementById('potentialReward').textContent;
+
+            const strategyContainer = document.getElementById('strategyButtons');
+            strategyContainer.innerHTML = '';
+            
+            const taskStrategies = strategiesByCategory[gameState.currentTask.category] || strategiesByCategory.general;
+            const shuffledStrategies = [...taskStrategies].sort(() => Math.random() - 0.5);
+
+            shuffledStrategies.forEach((strategy, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'strategy-btn';
+                btn.textContent = strategy;
+                btn.onclick = () => makeChoice(index, strategy);
+                strategyContainer.appendChild(btn);
+            });
+
+            startTimer();
+        }
+
+        function startTimer() {
+            gameState.timer = 60;
+            gameState.timerInterval = setInterval(() => {
+                gameState.timer--;
+                document.getElementById('gameTimer').textContent = gameState.timer;
+                
+                if (gameState.timer <= 0) {
+                    clearInterval(gameState.timerInterval);
+                    timeUp();
+                }
+            }, 1000);
+        }
+
+        function makeChoice(choiceIndex, strategy) {
+            clearInterval(gameState.timerInterval);
+            
+            const buttons = document.querySelectorAll('.strategy-btn');
+            buttons.forEach(btn => btn.disabled = true);
+            
+            setTimeout(() => {
+                showResults(strategy, choiceIndex);
+            }, 500);
+        }
+
+        function timeUp() {
+            const strategies = document.querySelectorAll('.strategy-btn');
+            strategies.forEach(btn => btn.disabled = true);
+            
+            setTimeout(() => {
+                showResults("time ran out, but you did your best", -1);
+            }, 500);
+        }
+
+        function showResults(chosenStrategy, choiceIndex) {
+            document.getElementById('challengeScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+
+            const baseScore = fruitScores[gameState.currentTask.difficulty];
+            const randomMultiplier = 0.5 + Math.random() * 0.5;
+            const earnedOvarmees = Math.floor(baseScore * randomMultiplier);
+
+            gameState.totalOvarmees += earnedOvarmees;
+            gameState.playsToday++;
+
+            const randomMessage = surrenderMessages[Math.floor(Math.random() * surrenderMessages.length)];
+            document.getElementById('surrenderBanner').textContent = randomMessage;
+
+            const storyOutcome = generateStoryOutcome(chosenStrategy, choiceIndex);
+            document.getElementById('storyText').innerHTML = storyOutcome;
+            
+            document.getElementById('ovarmeeResult').textContent = 
+                `You earned ${earnedOvarmees} ovarmees! 🌟`;
+
+            updateDisplay();
+        }
+
+        function generateStoryOutcome(strategy, choiceIndex) {
+            const leftHouse = Math.random() > 0.5;
+            const result = leftHouse ? "🌊 Flowing - You left the house!" : "🌙 Ebbing - You stayed home.";
+            
+            let outcomeList = [];
+            
+            if (gameState.currentTask.category === 'making_food') {
+                outcomeList = leftHouse ? foodOutcomes.leftHouse : foodOutcomes.stayedHome;
+            } else if (gameState.currentTask.category === 'life_admin') {
+                outcomeList = leftHouse ? lifeAdminOutcomes.leftHouse : lifeAdminOutcomes.stayedHome;
+            } else if (gameState.currentTask.category === 'getting_ready') {
+                outcomeList = leftHouse ? gettingReadyOutcomes.leftHouse : gettingReadyOutcomes.stayedHome;
+            } else if (gameState.currentTask.category === 'housework') {
+                outcomeList = leftHouse ? houseworkOutcomes.leftHouse : houseworkOutcomes.stayedHome;
+            } else {
+                outcomeList = leftHouse ? 
+                    ["You managed to complete your task and felt energized enough to leave the house."] :
+                    ["You listened to your body's wisdom and realized that staying home was exactly what you needed today."];
+            }
+            
+            const randomOutcome = outcomeList[Math.floor(Math.random() * outcomeList.length)];
+            return `<p><strong>${result}</strong></p><p>${randomOutcome}</p>`;
+        }
+
+        function resetGame() {
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+            
+            document.getElementById('mainGameStatus').classList.remove('hidden');
+            document.getElementById('ovarmeesCorner').classList.add('hidden');
+            document.getElementById('wheelResults').classList.add('hidden');
+            document.getElementById('spinBtn').disabled = false;
+            
+            if (gameState.timerInterval) {
+                clearInterval(gameState.timerInterval);
+            }
+        }
+
+        // Initialize game
+        checkDailyReset();
+        updateDisplay();
+        createWheelValues();
+        setupWheelDragging();
+    </script>
+</body>
+</html>
